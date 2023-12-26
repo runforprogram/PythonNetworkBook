@@ -28,6 +28,7 @@ class neuralNetwork:
     def train(self, inputs_list, targets_list):
         inputs = numpy.array(inputs_list, ndmin=2).T
         targes = numpy.array(targets_list, ndmin=2).T
+        print("targes",targes)
         hidden_inputs = numpy.dot(self.wih, inputs)
         hidden_outputs = self.activation_funcation(hidden_inputs)
 
@@ -35,6 +36,7 @@ class neuralNetwork:
         final_ouputs = self.activation_funcation(final_inputs)
 
         output_errors = targes - final_ouputs
+        print("output_errors",output_errors)
         hidden_errors = numpy.dot(self.who.T, output_errors)
         self.who += self.lr * numpy.dot((output_errors * final_ouputs * (1.0 - final_ouputs)),
                                         numpy.transpose(hidden_outputs))
@@ -54,6 +56,7 @@ class neuralNetwork:
 
 
 # number of input ,hidden and output nodes
+#input_nodes 根据数据来的
 input_nodes = 784
 hidden_nodes = 200
 output_nodes = 10
@@ -65,7 +68,7 @@ learning_rate = 0.2
 n = neuralNetwork(input_nodes, hidden_nodes, output_nodes, learning_rate)
 
 # load csv file
-training_data_file = open("E:/postgraduate/PythonCode/IpythonMNIST/mnist_train.csv", 'r')
+training_data_file = open("./mnist_train_100.csv", 'r')
 training_data_list = training_data_file.readlines()
 training_data_file.close()
 # print(n.query([1.0, 0.5, -1.5]))
@@ -88,7 +91,7 @@ for e in range(epochs):
     pass
 
 # load csv file
-test_data_file = open("E:/postgraduate/PythonCode/IpythonMNIST/mnist_test.csv", 'r')
+test_data_file = open("./mnist_test_10.csv", 'r')
 test_data_list = test_data_file.readlines()
 test_data_file.close()
 # all_values = test_data_list[0].split(',')
